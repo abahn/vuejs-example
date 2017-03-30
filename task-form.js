@@ -18,7 +18,13 @@ Vue.component('task-form', {
     createTask() {
       this
         .$http
-        .post('http://api.tinylog.dev/items', { description: this.description })
+        .post('http://api.tinylog.dev/items', {
+          item: {
+            description: this.description,
+            due_to: Utils.dateToString(),
+            completed: false
+          }
+        })
         .then(response => {
           this.$emit('task-created', response.body);
           this.description = '';
