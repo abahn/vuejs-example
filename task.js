@@ -41,7 +41,7 @@ Vue.component('task', {
         .$http
         .put(`http://api.tinylog.dev/items/${this.id}`, attributes)
         .then(response => {
-          this.$emit('task-updated', this.index, response.body);
+          this.$emit('task-updated', this, response.body);
         });
     },
 

@@ -2,10 +2,9 @@ Vue.component('task-list', {
   template: `
     <div>
       <task
-        v-for="(task, index) in tasks"
+        v-for="task in todaysTasks"
         :key="task.id"
         :id="task.id"
-        :index="index"
         :description="task.description"
         :completed="task.completed"
         @task-updated="updateTask"
@@ -37,8 +36,9 @@ Vue.component('task-list', {
       })
     },
 
-    updateTask(taskIndex, attributes) {
-      this.tasks.splice(taskIndex, 1, attributes);
+    updateTask(task, attributes) {
+      index = this.tasks.map(el => { return el.id; }).indexOf(task.id);
+      this.tasks.splice(index, 1, attributes);
     },
 
     addTask(task) {
