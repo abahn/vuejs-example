@@ -8,12 +8,10 @@ Vue.component('task', {
           <a @click="toggleCompleted">
             <i class="fa fa-check"></i>
           </a>
+          <a @click="remove">
+            <i class="fa fa-times"></i>
+          </a>
         </div>
-        <button
-          class="close"
-          @click="remove">
-          &times;
-        </button>
       </div>
     </div>
   `,
