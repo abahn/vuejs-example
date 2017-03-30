@@ -2,9 +2,13 @@ Vue.component('task-list', {
   template: `
     <div>
       <task
-        v-for="task in tasks"
+        v-for="(task, index) in tasks"
+        :key="task.id"
         :id="task.id"
+        :index="index"
         :description="task.description"
+        :completed="task.completed"
+        @task-updated="updateTask"
         @task-removed="removeTask">
       </task>
 
@@ -31,6 +35,10 @@ Vue.component('task-list', {
       this.tasks = this.tasks.filter(task => {
         return task.id !== newTask.id;
       })
+    },
+
+    updateTask(taskIndex, attributes) {
+      this.tasks.splice(taskIndex, 1, attributes);
     },
 
     addTask(task) {

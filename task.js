@@ -1,8 +1,14 @@
 Vue.component('task', {
   template: `
-    <div class="panel panel-default">
+    <div class="panel" :class="stateClass">
+      <div class="panel-heading"></div>
       <div class="panel-body">
         {{ description }}
+        <div class="pull-right">
+          <a @click="toggleCompleted">
+            <i class="fa fa-check"></i>
+          </a>
+        </div>
         <button
           class="close"
           @click="remove">
@@ -12,7 +18,15 @@ Vue.component('task', {
     </div>
   `,
 
-  props: ['id', 'description'],
+  props: ['id', 'index', 'description', 'completed'],
+
+  computed: {
+    stateClass() {
+      return this.completed
+        ? 'panel-success'
+        : 'panel-default'
+    }
+  },
 
   methods: {
     remove() {
@@ -23,5 +37,18 @@ Vue.component('task', {
           this.$emit('task-removed', this);
         });
     },
+
+    update(attributes = this) {
+      this
+        .$http
+        .put(`http://api.tinylog.dev/items/${this.id}`, attributes)
+        .then(response => {
+          this.$emit('task-updated', this.index, response.body);
+        });
+    },
+
+    toggleCompleted() {
+      this.update({ completed: !this.completed });
+    }
   }
 });
