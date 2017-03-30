@@ -29,7 +29,7 @@ Vue.component('task-list', {
   `,
 
   mounted() {
-    this.$http.get('http://api.tinylog.dev/items/').then(response => {
+    this.$http.get(Utils.apiHost).then(response => {
       this.tasks = response.body;
     });
   },

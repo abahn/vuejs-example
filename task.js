@@ -30,7 +30,7 @@ Vue.component('task', {
     remove() {
       this
         .$http
-        .delete(`http://api.tinylog.dev/items/${this.id}`)
+        .delete(`${Utils.apiHost}${this.id}`)
         .then(response => {
           this.$emit('task-removed', this);
         });
@@ -39,7 +39,7 @@ Vue.component('task', {
     update(attributes = this) {
       this
         .$http
-        .put(`http://api.tinylog.dev/items/${this.id}`, attributes)
+        .put(`${Utils.apiHost}${this.id}`, attributes)
         .then(response => {
           this.$emit('task-updated', this, response.body);
         });

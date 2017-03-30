@@ -18,7 +18,7 @@ Vue.component('task-form', {
     createTask() {
       this
         .$http
-        .post('http://api.tinylog.dev/items', {
+        .post(Utils.apiHost, {
           item: {
             description: this.description,
             due_to: Utils.dateToString(),
